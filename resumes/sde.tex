@@ -61,8 +61,8 @@
 \begin{itemize}
 \item Assumed full ownership of Titan's core event-processing and analytics service (Java, Spring Boot), ingesting daily \textbf{50M+} events and \textbf{200K+} entity updates in production across all clients.
 \item Migrated core APIs and SQS consumers to JDK 25 virtual threads, restructuring platform thread pools and optimizing tracing -- drove down P99 latency by \textbf{65\%} under peak load and lifted SQS consumer throughput by \textbf{~30\%}.
-\item Owned the platform's third-party data-delivery layer (Pendo, MoEngage) and redesigned it from an SQS-only pipeline to concurrent, virtual-thread-backed HTTP dispatch; iteratively shifted \textbf{90\%} SQS traffic to HTTP with near-zero downtime while holding strict per-vendor rate limits, minimizing SQS cost by \textbf{\$1.5K+/year}; independently led the MoEngage integration into the in-house analytics stack.
-\item Accelerated Github actions pipeline by EFS-backed persistent caching and SQL/Docker sidecars; faster testing and local inferences; reducing workflow time by \textbf{60\%} beyond the intern-era baseline.
+\item Owned the platform's third-party data-delivery layer (Pendo, MoEngage) and redesigned it from an SQS-only pipeline to concurrent, virtual-thread-backed HTTP dispatch; iteratively shifted \textbf{90\%} of SQS traffic to HTTP with near-zero downtime while holding strict per-vendor rate limits; independently led the MoEngage integration into the in-house analytics stack.
+\item Accelerated the GitHub Actions pipeline with EFS-backed persistent caching and SQL/Docker sidecars for faster testing and local inference, reducing workflow time by \textbf{60\%} beyond the intern-era baseline.
 \item For Mimir, Titan's AI-powered engineering automation platform, built the Athena-AI MCP integration linking internal analytics to AI agents; rolled out Claude Code Actions org-wide handling auth/token management, per-repo access control and embedded MCP servers.
 \end{itemize}
 
@@ -81,7 +81,7 @@
 \section{Projects}
 \projectHeading{Collab-Docs\,\href{https://collab-client-kvn5.onrender.com/}{\textnormal{\scriptsize$\nearrow$\,\normalsize (Live Demo)}}}{Node.js, PostgreSQL, Redis, WebSockets}{Aug. 2026}
 \begin{itemize}
-  \item Built and deployed a Google Docs-style real-time collaborative text editor with pluggable CRDT (Yjs) and hand-written OT engines; designed the sync protocol for network efficiency; server-side batching optimized broadcast messages by \textbf{24.3x} under simulated \textbf{100-editor load}, and CRDT state-vector diffing reduced reconnect payload size - \textbf{408x} smaller than full sync for a 100K-character document.
+  \item Built and deployed a Google Docs-style real-time collaborative text editor with pluggable CRDT (Yjs) and hand-written OT engines; designed the sync protocol for network efficiency; server-side batching optimized broadcast messages by \textbf{24.3x} under simulated \textbf{100-editor load}, and CRDT state-vector diffing reduced reconnect payload size \textbf{408x} versus full sync for a 100K-character document.
   \item Added Google OAuth login, 4-tier rate limiting, and Redis-backed sessions with in-process fallback; verified crash durability via fault-injection and property-based suites over an append-only PostgreSQL write log with \textbf{0 characters lost} on recovery.
 \end{itemize}
 
@@ -92,7 +92,7 @@
 \end{itemize}
 
 \section{Technical Skills}
-\textbf{Full Stack} Java, Spring Boot, Python, FastAPI, SQL, C++, Bash, JavaScript, Node.js, React, Kafka, SQS \\[-1pt]
+\textbf{Full Stack:} Java, Spring Boot, Python, FastAPI, SQL, C++, Bash, JavaScript, Node.js, React, Kafka, SQS \\[-1pt]
 \textbf{AI/ML:} RAG, graphRAG, LangChain/LangGraph, MCP, PyTorch, Agentic AI, Reinforcement Learning \\[-1pt]
 \textbf{Systems \& Infra:} AWS (S3, SQS, Lambda), Kubernetes, Redis, GitHub Actions \\[-1pt]
 \textbf{Data:} MySQL, Athena, Spark, Avro, Airflow \\[-1pt]

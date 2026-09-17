@@ -1,0 +1,116 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[margin=0.48in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{iftex}
+\ifPDFTeX
+  \input{glyphtounicode}
+  \pdfgentounicode=1
+  \pdfinterwordspaceon
+\fi
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{2em}
+\raggedright
+\urlstyle{same}
+
+\titleformat{\section}
+  {\large\bfseries}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing*{\section}{0pt}{4pt}{1.5pt}
+
+\setlist[itemize]{
+  leftmargin=1.15em,
+  label=\textbullet,
+  itemsep=0.3pt,
+  topsep=0.5pt,
+  parsep=0pt,
+  partopsep=0pt
+}
+
+\newcommand{\resumeHeading}[4]{%
+  \par\noindent\textbf{#1}\hfill\mbox{#2}\par
+  \noindent\textit{#3}\hfill\mbox{\textit{#4}}\par
+}
+
+\newcommand{\projectHeading}[3]{%
+  \par\noindent\textbf{#1} \textit{(#2)}\hfill\mbox{#3}\par
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Aekansh Kathunia}\\[-1pt]
+  \textbf{Software Engineer -- Forward Deployed}\\[1pt]
+
+  \href{mailto:aekansh047@gmail.com}{aekansh047@gmail.com}
+  \enspace\textbar\enspace \href{https://www.linkedin.com/in/dreddak47}{linkedin.com/in/dreddak47}
+  \enspace\textbar\enspace
+  \href{https://github.com/dreddak47}{github.com/dreddak47}
+\end{center}
+\vspace{-10pt}
+
+\section{Work Experience}
+\resumeHeading{Directi (Titan Email)}{Bangalore}{SDE - Backend}{July 2025 -- Present}
+\begin{itemize}
+\item Own Medusa end-to-end, the platform every internal team and external integration partners (MoEngage, Pendo) depend on for event/entity data; redesigned SQS/Athena data flows to cut P95 latency by \textbf{[X]\%} while onboarding \textbf{[N]+} dependent teams without incident. % TODO: fill latency % and team count
+\item Partner directly with mobile, frontend, and devops teams to translate their workflow needs into working CI/CD and dashboard integrations, driving org-wide adoption of internally-built tooling across \textbf{3+} teams end-to-end.
+\item Rolled out Claude Code Actions org-wide end-to-end -- design, auth/security, and adoption across \textbf{[N]} repos -- cutting PR turnaround time by \textbf{[X]\%}, a full ambiguous-problem-to-adopted-tool cycle owned solo. % TODO: fill repo count and PR turnaround %
+\end{itemize}
+
+\resumeHeading{Directi (Titan Email)}{Bangalore}{SDE Intern - Backend}{Jan 2025 -- July 2025}
+\begin{itemize}
+\item Owned an ambiguous, unfamiliar problem end-to-end: studied Kubernetes/ARC/Helm from scratch, then designed and shipped an org-wide GitHub Actions CI/CD platform replacing Jenkins, cutting deployment time by \textbf{~60\%} and achieving zero-downtime releases.
+\item Drove full-cycle adoption across \textbf{3+} teams -- from platform design through direct team-by-team onboarding -- via canary/blue-green release automation gated on live health signals, cutting failed-deploy incidents by \textbf{[X]\%}. % TODO: fill failed-deploy % reduction
+\end{itemize}
+
+\resumeHeading{MIDAS: Multimodal Digital Media Analysis Lab}{Delhi}{Undergraduate Researcher}{Aug 2024 -- Dec 2024}
+\begin{itemize}
+\item Analyzed 20+ LLM research papers and fine-tuned Qwen on 5K+ code-test pairs to prototype an LLM code-generation approach guided by semantic knowledge graphs.
+\end{itemize}
+
+\resumeHeading{Launchpad.ai}{Remote}{Software Engineering Fellow}{Jul 2024 -- Sep 2024}
+\begin{itemize}
+\item Led the team as Scrum Master, coordinating delivery timelines while optimizing a robotic arm for vision-based grasping (Deep RL: DQN, TD3), improving efficiency by \textbf{45\%}.
+\end{itemize}
+
+\section{Projects}
+\projectHeading{Vitalis - Personal Health Tracker\,\href{https://vitalis-aitracker.vercel.app/}{\scriptsize$\nearrow$}}{React, TypeScript, Node.js, Supabase}{Jan. 2026 -- Mar. 2026}
+\begin{itemize}
+  \item Built an end-to-end privacy-first health app: domain-aware extraction agents turn prescriptions, lab reports, and voice memos into structured data, then generate \textbf{dynamic UI health reports} tailored per user.
+  \item Engineered a \textbf{3-tier OCR/vision pipeline} that escalates only on low confidence ($<0.72$) or handwriting, validated by a 175-document eval harness achieving \textbf{82\% field-level accuracy}; made deliberate privacy trade-offs (RLS, audit logs, opt-in training consent).
+\end{itemize}
+
+\projectHeading{Collab-Docs\,\href{https://collab-client-kvn5.onrender.com/}{\textnormal{\scriptsize$\nearrow$\,\normalsize (Live Demo)}}}{Node.js, PostgreSQL, Redis, WebSockets}{Aug. 2026}
+\begin{itemize}
+  \item Shipped a full real-time collaborative editor end-to-end (frontend, sync protocol, auth, persistence) with pluggable CRDT/OT engines; documented 23 architecture decisions balancing trade-offs under real constraints.
+  \item Server-side batching cut broadcast messages by \textbf{25x} under simulated \textbf{100-editor load}; verified \textbf{0 characters lost} on crash recovery via scripted durability testing.
+\end{itemize}
+
+\projectHeading{Remote Connector}{Go, WebSockets, Android PWA}{2026}
+\begin{itemize}
+\item Built a full-stack remote-control system end-to-end -- Go daemon, Android PWA client, token-authenticated WebSocket protocol, and an optional cloud pairing flow -- solving a real personal workflow problem from OS-level input injection up to UI.
+\end{itemize}
+
+\section{Technical Skills}
+\textbf{Full-Stack:} React, Node.js, TypeScript, Spring Boot, Python, Go \\[-1pt]
+\textbf{Infra \& Delivery:} AWS, Kubernetes, Docker, GitHub Actions, Redis, PostgreSQL \\[-1pt]
+\textbf{AI/ML:} LLM agents, RAG, PyTorch, Agentic AI \\[-1pt]
+\textbf{Practices:} Rapid prototyping, cross-team delivery, architecture decision records \\[-1pt]
+
+\section{Education}
+\resumeHeading
+  {Indraprastha Institute of Information Technology Delhi (IIITD)}
+  {2025}
+  {Bachelor of Technology, Electronics and Communication Engineering}
+  {}
+
+\section{Achievements}
+\textbf{Codeforces} --- Expert \par
+\textbf{Amazon ML Challenge} --- Selected among the top 50 teams\hfill Sept. 2024\par
+
+\end{document}

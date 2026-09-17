@@ -1,0 +1,118 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[margin=0.48in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{iftex}
+\ifPDFTeX
+  \input{glyphtounicode}
+  \pdfgentounicode=1
+  \pdfinterwordspaceon
+\fi
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{2em}
+\raggedright
+\urlstyle{same}
+
+\titleformat{\section}
+  {\large\bfseries}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing*{\section}{0pt}{4pt}{1.5pt}
+
+\setlist[itemize]{
+  leftmargin=1.15em,
+  label=\textbullet,
+  itemsep=0.3pt,
+  topsep=0.5pt,
+  parsep=0pt,
+  partopsep=0pt
+}
+
+\newcommand{\resumeHeading}[4]{%
+  \par\noindent\textbf{#1}\hfill\mbox{#2}\par
+  \noindent\textit{#3}\hfill\mbox{\textit{#4}}\par
+}
+
+\newcommand{\projectHeading}[3]{%
+  \par\noindent\textbf{#1} \textit{(#2)}\hfill\mbox{#3}\par
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Aekansh Kathunia}\\[-1pt]
+  \textbf{Software Engineer -- AI/ML}\\[1pt]
+
+  \href{mailto:aekansh047@gmail.com}{aekansh047@gmail.com}
+  \enspace\textbar\enspace \href{https://www.linkedin.com/in/dreddak47}{linkedin.com/in/dreddak47}
+  \enspace\textbar\enspace
+  \href{https://github.com/dreddak47}{github.com/dreddak47}
+\end{center}
+\vspace{-10pt}
+
+\section{Work Experience}
+\resumeHeading{Directi (Titan Email)}{Bangalore}{SDE - Backend}{July 2025 -- Present}
+\begin{itemize}
+\item Built Mimir's Athena-AI workspace: MCP integrations connecting internal analytics APIs (Metabase, internal reporting API) to org-wide AI coding agents (Claude Code, OpenCode, Codex), automating duplicate-event/late-arrival data analysis and cutting manual data-QA effort by \textbf{[X]\%}. % TODO: fill QA-effort % reduction
+\item Own and scale Medusa, the org's event-ingestion platform, migrating hot paths to JDK 25 virtual threads and redesigning the Athena/Iceberg data pipeline serving \textbf{[N]+} downstream analytics consumers -- cutting P95 latency by \textbf{[X]\%} and pipeline runtime by \textbf{[X]\%}. % TODO: fill consumer count, latency %, runtime %
+\item Rolled out Claude Code Actions org-wide (auth/token management, cross-workflow context management), cutting average PR-review/issue-turnaround time by \textbf{[X]\%} across \textbf{[N]} engineers. % TODO: fill turnaround % and engineer count
+\end{itemize}
+
+\resumeHeading{Directi (Titan Email)}{Bangalore}{SDE Intern - Backend}{Jan 2025 -- July 2025}
+\begin{itemize}
+\item Designed and built an org-wide GitHub Actions CI/CD platform from scratch (self-hosted Kubernetes runners, EFS-backed caching) replacing Jenkins, cutting pipeline time by \textbf{~60\%} -- the platform's workflow layer later became the delivery mechanism for org-wide Claude Code Actions.
+\item Drove adoption across \textbf{3+} engineering teams via automated canary/blue-green release gates tied to live production health signals, cutting failed-deploy incidents by \textbf{[X]\%}. % TODO: fill failed-deploy % reduction
+\end{itemize}
+
+\resumeHeading{MIDAS: Multimodal Digital Media Analysis Lab}{Delhi}{Undergraduate Researcher}{Aug 2024 -- Dec 2024}
+\begin{itemize}
+\item Analyzed 20+ LLM research papers on code generation guided by semantic knowledge graphs; fine-tuned Qwen on 5K+ code-test pairs with AST and runtime-based evaluation plus graph-alignment scoring.
+\end{itemize}
+
+\resumeHeading{Launchpad.ai}{Remote}{Software Engineering Fellow}{Jul 2024 -- Sep 2024}
+\begin{itemize}
+\item Optimized a robotic arm for vision-based grasping using Deep RL (DQN, TD3) in a custom PyBullet simulation, improving movement precision/efficiency by \textbf{45\%}; implemented 10+ motion-planning algorithms.
+\end{itemize}
+
+\section{Projects}
+\projectHeading{RL Minesweeper Lab\,\href{https://rl-minesweeper-lab.vercel.app/}{\textnormal{\scriptsize$\nearrow$\,\normalsize (Live Demo)}}}{PyTorch, FastAPI}{May 2026 -- July 2026}
+\begin{itemize}
+  \item Built a CLI-configurable training harness across \textbf{5 agents}, 3 board sizes, 3 mine densities, totaling \textbf{2.7M training episodes} and \textbf{132K fixed-seed evaluation games}.
+  \item Designed a Gymnasium environment (11-channel one-hot encoding, action masking) with Double DQN targets; achieved \textbf{77\% win rate} vs. 70\% for a constraint-propagation solver, and \textbf{99\%} on fully deducible boards.
+  \item Replaced the Q-network's linear head with a convolutional head, cutting parameters from \textbf{1M to 29K}, enabling zero-shot transfer across board sizes.
+\end{itemize}
+
+\projectHeading{Vitalis - Personal Health Tracker\,\href{https://vitalis-aitracker.vercel.app/}{\scriptsize$\nearrow$}}{React, TypeScript, Node.js, Supabase}{Jan. 2026 -- Mar. 2026}
+\begin{itemize}
+  \item Built a privacy-first health app using \textbf{domain-aware extraction agents} to convert prescriptions, lab reports, and voice memos into structured, queryable health data; generated \textbf{dynamic UI health reports} tailored to user preferences.
+  \item Engineered a \textbf{3-tier OCR/vision pipeline} (embedded text, classical OCR, vision-model fallback) escalating only on low confidence ($<0.72$) or handwriting, validated by a 175-document eval harness achieving \textbf{82\% field-level accuracy}.
+\end{itemize}
+
+\projectHeading{StockWorthy}{AI Agent, RAG}{Sept 2024}
+\begin{itemize}
+\item Developed a Retrieval-Augmented Generation (RAG) pipeline integrating real-time sentiment analysis and structured financial metrics, achieving \textbf{R\textsuperscript{2} = 0.85} for short-term stock trend prediction.
+\item Fine-tuned Microsoft's phi-2 on a Hugging Face dataset, improving sentiment analysis to an \textbf{F1 of 0.7}, outperforming baseline models by \textbf{10\%}.
+\end{itemize}
+
+\section{Technical Skills}
+\textbf{AI/ML:} LLMs, RAG, Agentic AI, MCP, Reinforcement Learning, PyTorch, TensorFlow, LangChain, Fine-tuning \\[-1pt]
+\textbf{Languages:} Python, Java, SQL, JavaScript, TypeScript, C++ \\[-1pt]
+\textbf{Frameworks:} FastAPI, Flask, Django, Spring Boot, React, Node.js \\[-1pt]
+\textbf{Infra:} AWS (SageMaker, EC2, S3, Lambda), Docker, Kubernetes, Redis, Airflow \\[-1pt]
+
+\section{Education}
+\resumeHeading
+  {Indraprastha Institute of Information Technology Delhi (IIITD)}
+  {2025}
+  {Bachelor of Technology, Electronics and Communication Engineering}
+  {}
+
+\section{Achievements}
+\textbf{Codeforces} --- Expert \par
+\textbf{Amazon ML Challenge} --- Selected among the top 50 teams\hfill Sept. 2024\par
+
+\end{document}

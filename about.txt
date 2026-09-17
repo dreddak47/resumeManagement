@@ -1,0 +1,72 @@
+Notes About me: I am software engineer. I did Btech in ECE, but my main interest resolved around more of software side, but ECE gave me multiple background too. My entire career is somewhat combination of core AI sides like ML, dl, RL, llms, NLP which I have done in both software side (creating apps) and research side as well ( multiple research specific projects) I am also very well versed in DSA expert in code forces. High interest in System design
+
+So my main interest is Software engineering side with more of a side towards AI. I aspire to be more involved in AI , connected by software side much more than research side. Although I had done research in college. I also like reading research papers.
+Also I have 2 papers around - one in anumaan project mentioned in my resume , one I did in my NLP course. It was the transformers paper I mentioned in my resume.
+I was also an undergraduate researcher in one of the top labs of my college. I did research around Code generation through LLMS, basically working on Solving code forces problem through knowledge graphs etc. although we were very basic researchers, we did read many good papers. But we couldn't do much. But later turned out most of the agentic things that came like claude, most of the things were around what we researched and ideated. 
+
+I also worked a very good project in my RL course. Basically we researched AlphaGo. And almost successfully replicated the result.
+
+I also had SWE fellowship with remote lab . I was selected under a cohort where my task was robotic motion planning. Blog: https://medium.com/@gauthamsathyan/automating-sunscreen-application-with-robotics-a-deep-dive-into-two-approaches-34304dbdd719
+
+I also was selected among top 50 students for Graphic and Vision Summer School 2024 at IIT Delhi. Under their hackathon, Developed a Vision-Based House price Estimation System that predicts House price using Textual features as well 4-5 Images of the House. 
+-Also worked on SLAM for a diffrent approach on Depth Estimation
+
+ I had SDE- backend intern in the titan company for 6 months, Also I got PPO after the intern, and then I worked till present there. Titan email (direct) company 
+
+In my intern, I worked upon GitHub actions and Hephaestus (internal dashboard service). 
+I created organization level GitHub actions service, motive was to convert Jenkins pipeline, which was always difficult to manage, like outdated components, and time consuming to more easier , more connected to Org and GitHub repos, More involved and dynamic CI/CD pipelines. This was done through good architectural thing. You can see titan-github-actions in Documents to get more sense of it.
+
+- Was introduced to java/spring boot
+- Learnt the coding culture around the company, deployment management using lens, alert handling through Loki/grafana
+- Worked on multiple tasks on dashboard
+- My main project (3 months) - GitHub actions
+    - Studied ARC, helm charts, K8s, controllers/runners used by ARC
+    - Created starting pipeline around main services
+    - Later completed a full fledged GitHub actions which resolved around main services: it handled testing, proper repo worklow managements , CI/CD, logs monitoring/error monitoring on deployment, easy access and view through comments on the repo, complete/furnished workflow to sync main branches with prod, release pipelines.
+    - Improved the CI/CD . Made it easier than Jenkins. Multiple teams like mobile/frontend/devops adopted my service for managing their structure.
+
+In my main full time role, I entered into medusa (Documents/medusa/service) - a server side event driven service . This service basically get events/ entity(different user types exists in how emails/domain exist) updates from all service/clients . This is the briefest I can be. So basically we process all events / entities . Events come - validated against their final schemas, processing, then use a maintained pipeline to S3 bucket for storage of events in files, move around to 3rd party integrations. Entity updates are validated along their schemas, processed , and then moved around to DB/ or 3rd party integrations .  
+
+3rd party integrations exist like moengage/pendo which are used by different teams to analyse events/entities.
+ Medusa moves events and entities updates to 3rd integration through one more service - chidori. Basically medusa moves all events/entities update to different SQS based on different integration types, which is then polled by chidori. It process, validates, handles SQS management, and calls API to third party integrations
+
+Within medusa, we manage 2 more mini services - one is chidori(Documents/medusa/chidori) and one is medusaReports(Documents/medusa/medusareports) . medusaReports is the main service which basically handles core DB side, it handles Schema management etc . Medusa reports also do many of the cron jobs , which handle certain maintainence/reporting kind of jobs. One of the example is running a script every day to see last usage of events through Athena queries.
+
+All the main user/events models, different kind of models which were used by so many services to interact with medusa were maintained in 2 libraries medusacommons(Documents/medusa/commons)  and medusa client(Documents/medusa/interface) .
+
+There is a different service which is a part of medusa: medusa-athena-scripts (Documents/suite-scripts/k8s-scripts). Basically we maintain certain scripts (Java) . These are kind of ETL pipelines, which properly maintains events in S3, doing jobs like splitting events, compacting events etc. We also handle entity snapshots From DB to S3. All of this helped multiple teams to view customer/ events related data on Athena easily. The scripts used to run on airflow through DAG.
+
+In medusa. 
+- Worked around optimising/fixing bugs in already created medusa service
+- Data handling. Working extensively with DB/Athena around data to manage/optimize multiple points in service
+- Extensively worked with Loki/Grafana for monitoring. Created dashboards around multiple data stats we ingested through prometheus
+- Extensive work with SQS, S3 buckets
+- Worked with multiple important components to optimise their data flow. Multiple optimisations around caching, distributed system working, auth flow. 
+- Optimised service with virtual threads coming with JDK 25.
+- Worked extensively around rate limiting under multiple constraints provided by third party integrations
+- Worked around their events local file management
+
+
+- Also if you understand medusa get http request from services, send events and entities to chidori through SQS. medusa setup virtual threads before and it needed that to utilize benifits of that for scalability/optimization. but what happened was we used to send all events and entity updates through SQS. but it would take a lost of cost for so mamny messages, so we designed a system in medusa which will send events  to chidori via SQS and http requests . http requests were meant to reduce cost of SQS. but the amount of traffic that medusa used to send to chidori via SQS was very high. to properly manage it, in medusa we redesigned how push service (originally just sqs service) concurrency in the way we sent our events, used virtual threads with proper conccurent handling to send events to chidori via http requests with fall back to SQS. For this we also had to update outdated chidori, add virutal threads, redesigned parallelism for in order to get events to flow from sqs and http traffic to thrid party integrations within designed rate limits. We handled division between flow of events  from http and sqs from 20:80 to 100:0 with minimal downtime. do calculate the cost, if we send 200K events per hour to SQS. Chidori is basically kind of fan out service, which basically sends events and user data to third party integrations.
+
+In medusa scripts
+- Handled AWS SDk issues/maintenance/migration to V2. 
+- Optimised data pipelines to improve memory management. handling large data file within a run
+- Worked around multiple file types: csv/parquet/parquet.gz 
+- Also worked with data heavy libraries like spark, Hadoop, Avro
+- Optimized entities pipeline from medusa to Athena with multiple iterations and rethinking around formats like iceberg, redshift. Used strategies like CDC for handling data from Databases and using them for near zero ETLs. 
+
+I also maintained services like hades (chat service of flock, old - development stopped), Appointment booking ( a simple booking service used by clients) , Hephaestus (internal dashboard service)
+ 
+Also with that I maintained my own service I created - titan-github-actions . Maintained/scaled this service to be used by all kind of applications that needed CI/CD to be integrated along. Like AWS lambdas, scripts ( basically DockerFile) . Also created and maintained GitHub-actions-TestApp, which basically a sample service/library combination to test GitHub actions. 
+
+ - Optimised GitHub actions for better speed within self hosted architecture using better memory management. 
+- Attached EFS volume with GitHub runners for a kind of persistent memory. This was used for multiple binary management like idks/tools and cacheing dependencies which helped based to imrpove speed and time for ci/cd pipelines decreased unto 60 percent of what it was
+- Also integrated multiple services like sql, docker using sidecars for faster testing and local inferences.
+- Researched around multiple existing actions/workflows to integrate AI
+- Managed claude code actions integration among the org through our org level workflows . In any service, through issues, commenting /claude , dev wouldd solve issues, create PR, review PRs and solve around GitHub actions workflow. This included smart context management through out multiple workflows, auth token management, repo wise claude access management. 
+
+Then I worked on mimir: Mimir  is a centralized AI-toolchain repo for our org — slash commands, skills, agents, and workspace automation shared across Claude Code, OpenCode, and Codex.
+- Through centralised context management, workflows, situational playbooks, wiki, GitHub management, Jira connection
+- Worked on Athena AI , which included basic MCP connections to bring data closer to AI agents.
+. Search and learn more about the repo in Documents/mimir . 

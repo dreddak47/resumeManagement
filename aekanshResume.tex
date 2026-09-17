@@ -1,0 +1,150 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[margin=0.48in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{iftex}
+\ifPDFTeX
+  \input{glyphtounicode}
+  \pdfgentounicode=1
+  \pdfinterwordspaceon
+\fi
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{2em}
+\raggedright
+\urlstyle{same}
+
+\titleformat{\section}
+  {\large\bfseries}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing*{\section}{0pt}{4pt}{1.5pt}
+
+\setlist[itemize]{
+  leftmargin=1.15em,
+  label=\textbullet,
+  itemsep=0.3pt,
+  topsep=0.5pt,
+  parsep=0pt,
+  partopsep=0pt
+}
+
+\newcommand{\resumeHeading}[4]{%
+  \par\noindent\textbf{#1}\hfill\mbox{#2}\par
+  \noindent\textit{#3}\hfill\mbox{\textit{#4}}\par
+}
+
+\newcommand{\projectHeading}[3]{%
+  \par\noindent\textbf{#1} \textit{(#2)}\hfill\mbox{#3}\par
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Aekansh Kathunia}\\[-1pt]
+  \textbf{Software Engineer}\\[1pt]
+
+  \href{mailto:aekansh047@gmail.com}{aekansh047@gmail.com}
+  \enspace\textbar\enspace \href{https://www.linkedin.com/in/dreddak47}{linkedin.com/in/dreddak47}
+  \enspace\textbar\enspace
+  \href{https://github.com/dreddak47}{github.com/dreddak47}
+\end{center}
+\vspace{-10pt}
+
+\section{Education}
+\resumeHeading
+  {Indraprastha Institute of Information Technology Delhi (IIITD)}
+  {2025}
+  {Bachelor of Technology, Electronics and Communication Engineering}
+  {}
+
+\section{Work Experience}
+\resumeHeading{Directi (Titan Email)}{Bangalore}{SDE - Backend}{July 2025 -- Present}
+\begin{itemize}
+\item Contributing to the Titan Dashboard Service using Spring Boot, and AWS tools focusing on scalable microservice architecture and efficient service implementation
+\item Migrated CI/D from Jenkins to GitHub Actions + ARC on Kubernetes, cutting deployment time by 40\% and enabling seamless, production-grade rollouts with zero-downtime releases
+\end{itemize}
+
+\resumeHeading{Directi (Titan Email)}{Bangalore}{SDE Intern - Backend}{Jan 2025 -- July 2025}
+\begin{itemize}
+\item Contributing to the Titan Dashboard Service using Spring Boot, and AWS tools focusing on scalable microservice architecture and efficient service implementation
+\item Migrated CI/D from Jenkins to GitHub Actions + ARC on Kubernetes, cutting deployment time by 40\% and enabling seamless, production-grade rollouts with zero-downtime releases
+\end{itemize}
+
+\resumeHeading{MIDAS: Multimodal Digital Media Analysis Lab}{Delhi}{Undergraduate Researcher}{Aug 2024 -- Dec 2024}
+\begin{itemize}
+\item Conducted in-depth analysis of 20+ LLM research papers, driving innovative solutions for LLM code generation using dynamic test case synthesis; Analyzed semantic knowledge graphs to guide generation and improve context retention
+\item Fine-tuned Owen on 5K+ code-test pairs; implemented AST and runtime-based evaluation and graph-alignment scores
+\end{itemize}
+
+\resumeHeading{Launchpad.ai}{Remote}{Software Engineering Fellow}{Jul 2024 -- Sep 2024}
+\begin{itemize}
+\item Led the team as the Scrum Master, improving team collaboration and project delivery timelines | blog
+\item Optimized a robotic arm for sunscreen application using Deep RL for vision-based grasping, implementing DQN and TD3 approaches, which enhanced the precision of the arm's movements and demonstrated improvement in efficiency by 45\%
+\item Designed a PyBullet simulation environment for training RL agents in robotics and implemented 10+ motion planning algorithms
+\end{itemize}
+
+
+\section{Projects}
+\projectHeading{Collab-Docs\,\href{https://collab-client-kvn5.onrender.com/}{\textnormal{\scriptsize$\nearrow$\,\normalsize (Live Demo)}}}{Node.js, PostgreSQL, Redis, WebSockets}{Aug. 2026}
+\begin{itemize}
+  \item Built and deployed a Google Docs-style real-time collaborative text editor with pluggable CRDT (Yjs) and hand-written OT engines behind a common sync interface; manually tested with \textbf{15--20 concurrent clients}.
+  \item Designed the sync protocol for network efficiency: server-side batching cut broadcast messages by \textbf{25x} under simulated \textbf{100-editor load}; CRDT state-vector diffing cut reconnect payload size by \textbf{408x} for a \textbf{100K character document} versus full-state transfer.
+  \item Added Google OAuth login, 4-tier per-endpoint rate limiting, and Redis-backed session caching with automatic in-process fallback when Redis is unavailable.
+  \item Verified crash durability via scripted tests against an append-only PostgreSQL write log with buffered batch inserts; \textbf{0 characters lost on recovery}.
+\end{itemize}
+
+\projectHeading{RL Minesweeper Lab\,\href{https://rl-minesweeper-lab.vercel.app/}{\textnormal{\scriptsize$\nearrow$\,\normalsize (Live Demo)}}}{PyTorch, FastAPI}{May 2026 -- July 2026}
+\begin{itemize}
+  \item Built a CLI-configurable training harness (argparse-driven hyperparameters, checkpointing on best-scoring policy, JSON/CSV per-episode history export) to orchestrate multiple training runs across \textbf{5 agents} for 3 board sizes, 3 mine densities and 2 board configs(first mine safe/unsafe), totaling \textbf{2.7M training episodes} and \textbf{132K fixed-seed evaluation games}.
+  \item Designed a Gymnasium environment with 11-channel one-hot encoding and action masking for policy sampling and Double DQN targets; achieved \textbf{77\% win rate} versus 70\% for a constraint-propagation solver, and \textbf{99\%} on fully deducible boards.
+  \item Replaced the Q-network's linear head with a convolutional head, reducing parameters from \textbf{1M to 29K} on 16-by-16 boards; enabled zero-shot transfer from 5-by-5 to 9-by-9 boards at half the directly trained win rate.
+\end{itemize}
+
+\projectHeading{Vitalis - Personal Health Tracker\,\href{https://vitalis-aitracker.vercel.app/}{\scriptsize$\nearrow$}}{React, TypeScript, Node.js, Supabase}{Jan. 2026 -- Mar. 2026}
+\begin{itemize}
+  \item Built a privacy-first health app using \textbf{domain-aware extraction pipelines} — to convert prescriptions, lab reports, and voice memos
+  into structured, queryable health data; generate \textbf{dynamic UI based health reports} tailored to user preferences using AI agents.
+  \item Engineered a \textbf{3-tier OCR/vision pipeline} (embedded text, classical OCR, vision-model fallback) that escalates only on low confidence ($<0.72$) or handwriting, validated by a 175-document eval harness (25/type, 7 types) achieving \textbf{82\% field-level accuracy}.
+\end{itemize}
+
+\projectHeading{Anumaan}{(React, Nodejs, Flask, Cloud, MLops)}{Aug 2024 - Jan 2025}
+\begin{itemize}
+\item Engineered a full-stack application for IITK's research on "Assessing Cognitive Immersion in Online Exams, analyzing guessing behavior via live click interactions and multimodal cues like Facial Action Units and gaze tracking | Anumaan | Blog
+\item Integrated multimodal behavioral analysis tools, processing data from 50+ test participants to identify patterns of guessing behavior along with temporal analysis, resulting in actionable insights about guessing behaviour
+\end{itemize}
+
+\projectHeading{StockWorthy}{Al Agent}{Sept 2024}
+\begin{itemize}
+\item Developed a Retrieval-Augmented Generation (RAG) pipeline to integrate real-time sentiment analysis and structured financial
+metrics, achieving a prediction accuracy of R? = 0.85 for short-term stock trends | Github
+\item Fine-tuned a Hugging Face dataset on Microsoft's phi-2 model, enhancing sentiment analysis performance to an F1 score of 0.7. outperforming baseline models by 10%
+\end{itemize}
+
+\projectHeading{Real-time Face Recognition System}{AWS, Computer Vision, ML}{June. 2024}
+\begin{itemize}
+\item Innovated a scalable face recognition system pipeline with an accuracy of ~92\% using AWS Sagemaker with modular ML model deployment and optimized I/O through multithreaded video capture
+\item Achieved ~80ms reduction in real-time inference using model quantization, lazy loading, and horizontal scaling across EC2 instances
+\end{itemize}
+
+\projectHeading{Sentiment Analysis Across Languages: Evaluation Before and After Machine Translation}{Transformers}{}
+\begin{itemize}
+\item Highlighted the performance of transformer models in Sentiment Analysis tasks across multilingual datasets and machine-translated text, addressing the lack of sentiment resources for non-English languages
+\item Evaluated model effectiveness in various linguistic contexts, highlighting performance variations before and after translating Machine Translation of 6 main non-English Popular Languages | Paper
+\end{itemize}
+
+\section{Technical Skills}
+\textbf{Technical:} DSA, DBMS, ML/Generative Al, Reinforcement Learning, Agentic Al, DevOps, API Development, Computer Networks \\[-1pt]
+\textbf{Languages:} Python, C, C++, SQL, JavaScript, TypeScript, Bash\\[-1pt]
+\textbf{Frameworks \& Libraries:} React, NodeJS, SpringBoot, Django, Flask, MySQL, PyTorch, TensorFlow, LangChain, Gradio\\[-1pt]
+\textbf{Software/Tools::} Linux, Docker, Git, GCP, Firestore, AWS (RDS, Sagemaker, EC2), Redis, Github Actions, Jenkins\\[-1pt]
+
+\section{Achievements}
+\textbf{Codeforces} --- Expert \par
+\textbf{Amazon ML Challenge} --- Selected among the top 50 teams\hfill Sept. 2024\par
+
+\end{document}
+

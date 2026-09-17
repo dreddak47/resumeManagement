@@ -1,0 +1,9 @@
+.DS_Store
+.bin/
+.venv/
+build/
+*.aux
+*.log
+*.out
+*.pdf
+!resumes/best/*.pdf

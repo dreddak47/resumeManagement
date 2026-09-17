@@ -6,6 +6,7 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage[hidelinks]{hyperref}
+\usepackage{fontawesome}
 \usepackage{iftex}
 \ifPDFTeX
   \input{glyphtounicode}
@@ -62,8 +63,9 @@
 \item Assumed full ownership of Titan's core event-processing and analytics service (Java, Spring Boot), ingesting daily \textbf{50M+} events and \textbf{200K+} entity updates in production across all clients.
 \item Migrated core APIs and SQS consumers to JDK 25 virtual threads, restructuring platform thread pools and optimizing tracing -- drove down P99 latency by \textbf{65\%} under peak load and lifted SQS consumer throughput by \textbf{~30\%}.
 \item Owned the platform's third-party data-delivery layer (Pendo, MoEngage) and redesigned it from an SQS-only pipeline to concurrent, virtual-thread-backed HTTP dispatch; iteratively shifted \textbf{90\%} of SQS traffic to HTTP with near-zero downtime while holding strict per-vendor rate limits; independently led the MoEngage integration into the in-house analytics stack.
-\item Accelerated the GitHub Actions pipeline with EFS-backed persistent caching and SQL/Docker sidecars for faster testing and local inference, reducing workflow time by \textbf{60\%} beyond the intern-era baseline.
-\item For Mimir, Titan's AI-powered engineering automation platform, built the Athena-AI MCP integration linking internal analytics to AI agents; rolled out Claude Code Actions org-wide handling auth/token management, per-repo access control and embedded MCP servers.
+\item Accelerated the GitHub Actions pipeline with EFS-powered persistent caching and SQL/Docker sidecars for faster testing and local inference, reducing workflow time by \textbf{60\%} beyond the intern-era baseline.
+\item For Mimir, Titan's AI-powered engineering automation platform, engineered the Athena-AI MCP integration linking internal analytics to AI agents; rolled out Claude Code Actions org-wide handling auth/token management, per-repo access control and embedded MCP servers.
+\item Redesigned the Athena-bound entity-snapshot ETL pipeline using an Iceberg/CDC pattern, cutting pipeline CPU usage by \textbf{70\%}; refined multiple data-heavy Airflow pipelines to reduce time-to-availability for downstream consumers.
 \end{itemize}
 
 \noindent\textit{SDE Intern - Backend}\hfill\mbox{\textit{Jan 2025 -- July 2025}}\par
@@ -75,19 +77,19 @@
 
 \resumeHeading{Launchpad.ai}{Remote}{Software Engineering Fellow}{Jul 2024 -- Sep 2024}
 \begin{itemize}
-\item Led the team as Scrum Master; optimized a robotic arm for vision-based grasping using Deep RL (DQN, TD3) across a custom PyBullet simulation, improving movement precision/efficiency by \textbf{45\%}.
+\item Led the team as Scrum Master; optimized a robotic arm for vision-based grasping using Deep RL (DQN, TD3) across a custom PyBullet simulation, improving movement precision/efficiency by \textbf{45\%}. \textbar\ \href{https://medium.com/@gauthamsathyan/automating-sunscreen-application-with-robotics-a-deep-dive-into-two-approaches-34304dbdd719}{\textnormal{\scriptsize$\nearrow$\,\normalsize (Blog)}}
 \end{itemize}
 
 \section{Projects}
-\projectHeading{Collab-Docs\,\href{https://collab-client-kvn5.onrender.com/}{\textnormal{\scriptsize$\nearrow$\,\normalsize (Live Demo)}}}{Node.js, PostgreSQL, Redis, WebSockets}{Aug. 2026}
+\projectHeading{Collab-Docs}{Node.js, PostgreSQL, Redis, WebSockets}{\scriptsize\href{https://github.com/dreddak47/collab-docs}{\faGithub}\ \textbar\ \href{https://collab-client-kvn5.onrender.com/}{\faExternalLink}\ \textbar\ \normalsize Aug. 2026}
 \begin{itemize}
-  \item Built and deployed a Google Docs-style real-time collaborative text editor with pluggable CRDT (Yjs) and hand-written OT engines; designed the sync protocol for network efficiency; server-side batching optimized broadcast messages by \textbf{24.3x} under simulated \textbf{100-editor load}, and CRDT state-vector diffing reduced reconnect payload size \textbf{408x} versus full sync for a 100K-character document.
-  \item Added Google OAuth login, 4-tier rate limiting, and Redis-backed sessions with in-process fallback; verified crash durability via fault-injection and property-based suites over an append-only PostgreSQL write log with \textbf{0 characters lost} on recovery.
+  \item Engineered and deployed a Google Docs-style real-time collaborative text editor with pluggable CRDT (Yjs) and hand-written OT engines; designed the sync protocol for network efficiency; server-side batching optimized broadcast messages by \textbf{24.3x} under simulated \textbf{100-editor load}, and CRDT state-vector diffing reduced reconnect payload size \textbf{408x} versus full sync for a 100K-character document.
+  \item Added Google OAuth login, 4-tier rate limiting, and Redis-cached sessions with in-process fallback; verified crash durability via fault-injection and property-based suites over an append-only PostgreSQL write log with \textbf{0 characters lost} on recovery.
 \end{itemize}
 
-\projectHeading{RL Minesweeper Lab\,\href{https://rl-minesweeper-lab.vercel.app/}{\textnormal{\scriptsize$\nearrow$\,\normalsize (Live Demo)}}}{PyTorch, FastAPI}{May 2026 -- July 2026}
+\projectHeading{RL Minesweeper Lab}{PyTorch, FastAPI}{\scriptsize\href{https://github.com/dreddak47/RL-Minesweeper-Lab}{\faGithub}\ \textbar\ \href{https://rl-minesweeper-lab.vercel.app/}{\faExternalLink}\ \textbar\ \normalsize May 2026 -- July 2026}
 \begin{itemize}
-  \item Built a configurable training harness (5 agents, 3 board sizes, 3 mine densities) totaling \textbf{2.7M training episodes} and \textbf{132K fixed-seed evaluation games}; designed a Gymnasium environment with \textbf{action masking} for Double DQN, achieving \textbf{77\%} win rate versus 70\% for a constraint-propagation solver.
+  \item Developed a configurable training harness (5 agents, 3 board sizes, 3 mine densities) totaling \textbf{2.7M training episodes} and \textbf{132K fixed-seed evaluation games}; designed a Gymnasium environment with \textbf{action masking} for Double DQN, achieving \textbf{77\%} win rate versus 70\% for a constraint-propagation solver.
   \item Replaced the Q-network's linear head with a convolutional head, reducing parameters from \textbf{1M to 29K} on 16-by-16 boards; enabled \textbf{zero-shot transfer} from 5-by-5 to 9-by-9 boards.
 \end{itemize}
 

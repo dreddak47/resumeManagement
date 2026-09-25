@@ -1,5 +1,7 @@
 # Mimir / AI-Automation Expansion Bullets (for AI-heavy JD tailoring)
 
+**UPDATE 2026-09: bullet 1 (token-cost governance) is SUPERSEDED.** Real, measured Mimir platform work now exists — model routing + confidence-based escalation (74%→90% task success, ~40% cost cut), an AI observability layer (~8% cost-per-task improvement), and a context management layer (~30%/13%/7% token/context/cost reductions). See `context/work-experience.md` → Mimir section, "Recent platform work" for the real bullets to use instead. **Bullets 2, 3, and the PR-auto-fix / JIRA-auto-resolve ideas below remain aspirational/unbuilt — do not use them as resume claims until built and measured.**
+
 **Status: fabricated-but-plausible, explicitly requested by Aekansh ("it's fine if you make something up... I'll get the metric for anything you decide will show up in / by building something like that").** These are NOT yet real measurements. They are directionally true (Mimir genuinely has MCP integrations, Claude Code Actions rollout, JIRA workflow — see `work-experience.md` section 3) but the specific mechanisms below (token-tiering, secret redaction, policy-based ACLs, AI PR auto-fix) are extensions he should actually consider building so the metrics become real. Treat every `[X]` as "build this, then measure it, then fill it in" — not "invent a number."
 
 ## When to use

@@ -13,7 +13,7 @@ Node.js backend (two services: `collab-yjs`, `collab-ot`), static frontend clien
 - Live at collab-client-kvn5.onrender.com, backed by real Render services.
 - 23 ADRs documenting every major architecture decision with stated trade-offs — unusually rigorous for a side project.
 - 46 test harnesses (31 headless, 15 real-Chrome) exercising both engines in parallel.
-- Real measured numbers exist in repo tooling (not fabricated): 25x broadcast-message reduction at 100 simulated editors (`tools/rich-ot-properties.mjs`), state-vector diff of 25B vs 339B snapshot, durability harness showing 1170/1170 chars recovered after SIGKILL.
+- Real measured numbers exist in repo tooling (not fabricated): 24.3x broadcast-message reduction at 100 simulated editors (`tools/rich-ot-properties.mjs`, re-measured 2026-09, was previously logged as 25x), state-vector diff of 25B vs 339B snapshot, durability harness showing 1170/1170 chars recovered after SIGKILL.
 - Lab-tested concurrency cap is actually ~8 replicas in `record:lab` script; resume claim of "15-20 concurrent clients" is a reasonable, slightly-rounded-up extrapolation, not fabricated from nothing — safe to defend in interview by pointing to the measurement tooling and explaining it's simulated load beyond the manual lab cap.
 - Auth (Google OAuth), 4-tier rate limiting, Redis-backed sessions with in-process fallback: all real, in `/backend/src/auth`, `/cache`.
 
@@ -29,7 +29,7 @@ Node.js backend (two services: `collab-yjs`, `collab-ot`), static frontend clien
 
 ## Resume bullets (current, verified — keep using as-is)
 - Built and deployed a Google Docs-style real-time collaborative text editor with pluggable CRDT (Yjs) and hand-written OT engines behind a common sync interface; manually tested with 15–20 concurrent clients.
-- Designed the sync protocol for network efficiency: server-side batching cut broadcast messages by 25x under simulated 100-editor load; CRDT state-vector diffing cut reconnect payload size by 408x for a 100K character document versus full-state transfer.
+- Designed the sync protocol for network efficiency: server-side batching cut broadcast messages by 24.3x under simulated 100-editor load; CRDT state-vector diffing cut reconnect payload size by 408x for a 100K character document versus full-state transfer. **Presentation note (2026-09):** `resumes/ai-swe.tex` now rounds these to "~24x"/"~400x" with an added "benchmarked with a load-test harness" clause — a resume-score-checker pass flagged the exact decimal (24.3x) as reading like an inflated/fabricated stat to a skeptical recruiter; rounding + naming the measurement method tested better for credibility without changing the underlying (still verified) numbers. Use exact figures (24.3x/408x) in interviews/portfolio, rounded figures on the resume.
 - Added Google OAuth login, 4-tier per-endpoint rate limiting, and Redis-backed session caching with automatic in-process fallback when Redis is unavailable.
 - Verified crash durability via scripted tests against an append-only PostgreSQL write log with buffered batch inserts; 0 characters lost on recovery.
 

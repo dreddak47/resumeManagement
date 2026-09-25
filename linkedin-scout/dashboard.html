@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LinkedIn Scout</title>
+<style>
+  :root {
+    --bg: #f4f2ee; --card: #fff; --text: #1d2226; --muted: #666; --line: #e0dfdc;
+    --accent: #0a66c2; --good: #057642; --warn: #b24020; --chip: #eef3f8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #111418; --card: #1b1f23; --text: #e8e6e3; --muted: #9aa0a6; --line: #2c3238;
+            --accent: #71b7fb; --good: #5fcf8f; --warn: #f28b6b; --chip: #243140; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 -apple-system, system-ui, sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
+  header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  h1 { font-size: 22px; margin: 0; }
+  .muted { color: var(--muted); font-size: 12px; }
+  nav { display: flex; gap: 6px; margin: 18px 0 14px; flex-wrap: wrap; }
+  nav button { border: 1px solid var(--line); background: var(--card); color: var(--text); padding: 6px 14px;
+               border-radius: 999px; cursor: pointer; font: inherit; }
+  nav button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 22px 0 8px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; }
+  .card.done { opacity: .45; }
+  .top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+  .author { font-weight: 600; }
+  .text { margin: 6px 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .text.clamp { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; cursor: pointer; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .chip { background: var(--chip); border-radius: 6px; padding: 1px 8px; font-size: 12px; }
+  .chip.good { color: var(--good); } .chip.warn { color: var(--warn); }
+  a { color: var(--accent); overflow-wrap: anywhere; }
+  .actions button { border: 0; background: none; color: var(--accent); cursor: pointer; font: inherit; padding: 0; }
+  .empty { color: var(--muted); padding: 10px 0; }
+  details summary { cursor: pointer; color: var(--muted); margin-top: 18px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>LinkedIn Scout</h1>
+    <span class="muted" id="updated"></span>
+  </header>
+  <nav id="tabs"></nav>
+  <section id="view"></section>
+</main>
+<script>
+const TABS = { jobs: 'Jobs', research: 'Research', dev: 'Dev to check out' };
+let tab = 'jobs', items = [];
+try { tab = localStorage.getItem('scoutTab') || 'jobs'; } catch {}
+
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const ago = (t) => { const m = Math.round((Date.now() / 1000 - t) / 60); return m < 60 ? `${m}m ago` : m < 1440 ? `${Math.round(m / 60)}h ago` : `${Math.round(m / 1440)}d ago`; };
+
+function card(it, extra = '') {
+  const links = (it.links || []).filter((l) => l !== it.primary_link).slice(0, 4);
+  const emails = (it.emails || []).map((e) => `<a href="mailto:${esc(e)}">${esc(e)}</a>`).join(' ');
+  return `<div class="card ${it.done ? 'done' : ''}">
+    <div class="top"><span class="author">${esc(it.author || 'Unknown')}</span>
+      <span class="muted">${esc(it.age)} · seen ${ago(it.created_at)}</span></div>
+    <div class="row">${extra}</div>
+    <div class="text clamp" onclick="this.classList.toggle('clamp')">${esc(it.text)}</div>
+    <div class="row">
+      ${it.primary_link ? `<a href="${esc(it.primary_link)}" target="_blank">${esc(it.primary_link.slice(0, 70))}</a>` : ''}
+      ${links.map((l) => `<a class="muted" href="${esc(l)}" target="_blank">${esc(new URL(l).hostname)}</a>`).join('')}
+      ${emails}
+    </div>
+    <div class="row actions" style="margin-top:6px">
+      <a href="${esc(it.post_url)}" target="_blank">Open post</a>
+      <button onclick="toggle(${it.id}, ${it.done ? 0 : 1})">${it.done ? 'Undo' : 'Mark done'}</button>
+    </div></div>`;
+}
+
+const fitChip = (f) => `<span class="chip ${f >= 0.6 ? 'good' : f < 0.4 ? 'warn' : ''}">fit ${Number(f).toFixed(2)}</span>`;
+const section = (title, list, render) => `<h2>${title} (${list.filter((i) => !i.done).length})</h2>` +
+  (list.length ? list.map(render).join('') : '<div class="empty">Nothing here yet.</div>');
+
+function render() {
+  document.getElementById('tabs').innerHTML = Object.entries(TABS).map(([k, v]) =>
+    `<button class="${k === tab ? 'on' : ''}" onclick="setTab('${k}')">${v}</button>`).join('');
+  const by = (cat, statuses) => items.filter((i) => i.category === cat && (!statuses || statuses.includes(i.status)));
+  let html = '';
+  if (tab === 'jobs') {
+    html += section('Open & matching — tab kept open', by('job_post', ['open_match']), (i) =>
+      card(i, `${fitChip(i.fit)} ${i.details?.page_title ? `<span class="chip">${esc(i.details.page_title.slice(0, 60))}</span>` : ''}`));
+    html += section('Reach out (DM / email / check link manually)', by('job_post', ['reach_out', 'checking']), (i) =>
+      card(i, `${fitChip(i.fit)} <span class="chip">${esc(i.details?.apply_channel)}</span>` +
+        (i.status === 'checking' ? '<span class="chip warn">link check pending</span>' : '')));
+    const rest = by('job_post', ['closed', 'low_fit']);
+    html += `<details><summary>Skipped: closed or low fit (${rest.length})</summary>` +
+      rest.map((i) => card(i, `${fitChip(i.fit)} <span class="chip">${i.status.replace('_', ' ')}</span>`)).join('') + '</details>';
+  } else if (tab === 'research') {
+    html += section('Research posts', by('research'), (i) => card(i));
+  } else {
+    html += section('Dev things to check out', by('dev_resource'), (i) => card(i));
+  }
+  document.getElementById('view').innerHTML = html;
+}
+
+function setTab(t) { tab = t; try { localStorage.setItem('scoutTab', t); } catch {} render(); }
+async function toggle(id, done) { await fetch(`/api/items/${id}/${done ? 'done' : 'undo'}`, { method: 'POST' }); load(); }
+async function load() {
+  items = await fetch('/api/items').then((r) => r.json());
+  document.getElementById('updated').textContent = `refreshed ${new Date().toLocaleTimeString()}`;
+  render();
+}
+load();
+setInterval(load, 10000);
+</script>
+</body>
+</html>

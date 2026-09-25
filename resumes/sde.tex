@@ -61,18 +61,18 @@
 \resumeHeading{Directi (Titan Email)}{Bangalore}{SDE - Backend}{July 2025 -- Present}
 \begin{itemize}
 \item Assumed full ownership of Titan's core event-processing and analytics service (Java, Spring Boot), ingesting daily \textbf{50M+} events and \textbf{200K+} entity updates in production across all clients.
-\item Migrated core APIs and SQS consumers to JDK 25 virtual threads, restructuring platform thread pools and optimizing tracing -- drove down P99 latency by \textbf{65\%} under peak load and lifted SQS consumer throughput by \textbf{~30\%}.
-\item Owned the platform's third-party data-delivery layer (Pendo, MoEngage) and redesigned it from an SQS-only pipeline to concurrent, virtual-thread-backed HTTP dispatch; iteratively shifted \textbf{90\%} of SQS traffic to HTTP with near-zero downtime while holding strict per-vendor rate limits; independently led the MoEngage integration into the in-house analytics stack.
-\item Accelerated the GitHub Actions pipeline with EFS-powered persistent caching and SQL/Docker sidecars for faster testing and local inference, reducing workflow time by \textbf{60\%} beyond the intern-era baseline.
-\item For Mimir, Titan's AI-powered engineering automation platform, engineered the Athena-AI MCP integration linking internal analytics to AI agents; rolled out Claude Code Actions org-wide handling auth/token management, per-repo access control and embedded MCP servers.
+\item Migrated core APIs and SQS consumers to JDK 25 virtual threads, restructuring platform thread pools and optimizing tracing -- drove down P99 latency by \textbf{65\%} under peak load and lifted SQS consumer throughput by \textbf{\textasciitilde 30\%}.
+\item Owned the platform's third-party data-delivery layer (Pendo, MoEngage) and redesigned it from an SQS-only pipeline to concurrent, virtual thread based HTTP delivery; iteratively shifted \textbf{90\%} of SQS traffic to HTTP with near-zero downtime while holding strict per-vendor rate limits; independently led the MoEngage integration into the in-house analytics stack.
+\item Accelerated the GitHub Actions pipeline with EFS-powered persistent caching and SQL/Docker sidecars for faster testing and local inference, reducing workflow time by \textbf{60\%}
+\item Contributed to Mimir, Titan's AI-powered engineering automation platform, engineered the Athena-AI MCP integration linking internal analytics to AI agents; rolled out Claude Code Actions org-wide handling auth/token management, per-repo access control and embedded MCP servers.
 \item Redesigned the Athena-bound entity-snapshot ETL pipeline using an Iceberg/CDC pattern, cutting pipeline CPU usage by \textbf{70\%}; refined multiple data-heavy Airflow pipelines to reduce time-to-availability for downstream consumers.
 \end{itemize}
 
 \noindent\textit{SDE Intern - Backend}\hfill\mbox{\textit{Jan 2025 -- July 2025}}\par
 \begin{itemize}
-\item Architected titan-github-actions, an org-wide GitHub Actions CI/CD platform (Python, Bash) from the ground up on self-hosted runners (ARC on Kubernetes), replacing Jenkins -- lowering average pipeline time by \textbf{~40\%}, adopted across multiple engineering teams.
+\item Architected titan-github-actions, an org-wide GitHub Actions CI/CD platform (Python, Bash) from the ground up on self-hosted runners (ARC on Kubernetes), replacing Jenkins -- lowering average pipeline time by \textbf{\textasciitilde 40\%}, adopted across multiple engineering teams.
 \item Built observability-driven automated deployments (live monitoring via Loki/Prometheus) with dynamic rollback -- cut failed-deploy incidents by \textbf{80\%} and reduced manual deployment effort.
-\item Contributed to multiple services using Spring Boot and AWS tools, focusing on scalable microservice architecture and efficient service implementation.
+\item Enhanced and maintained mutitiple backend services (Spring Boot, AWS), focusing on scalable microservice architecture and efficient service implementation.
 \end{itemize}
 
 \resumeHeading{Launchpad.ai}{Remote}{Software Engineering Fellow}{Jul 2024 -- Sep 2024}

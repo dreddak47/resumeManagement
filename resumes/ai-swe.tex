@@ -1,0 +1,111 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[margin=0.48in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fontawesome}
+\usepackage{iftex}
+\ifPDFTeX
+  \input{glyphtounicode}
+  \pdfgentounicode=1
+  \pdfinterwordspaceon
+\fi
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{2em}
+\raggedright
+\urlstyle{same}
+
+\titleformat{\section}
+  {\large\bfseries}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing*{\section}{0pt}{4pt}{1.5pt}
+
+\setlist[itemize]{
+  leftmargin=1.15em,
+  label=\textbullet,
+  itemsep=0.3pt,
+  topsep=0.5pt,
+  parsep=0pt,
+  partopsep=0pt
+}
+
+\newcommand{\resumeHeading}[4]{%
+  \par\noindent\textbf{#1}\hfill\mbox{#2}\par
+  \noindent\textit{#3}\hfill\mbox{\textit{#4}}\par
+}
+
+\newcommand{\projectHeading}[3]{%
+  \par\noindent\textbf{#1} \textit{(#2)}\hfill\mbox{#3}\par
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Aekansh Kathunia}\\[-1pt]
+  \textbf{Software Engineer}\\[1pt]
+
+  \href{mailto:aekansh047@gmail.com}{aekansh047@gmail.com}
+  \enspace\textbar\enspace \href{https://www.linkedin.com/in/dreddak47}{linkedin.com/in/dreddak47}
+  \enspace\textbar\enspace
+  \href{https://github.com/dreddak47}{github.com/dreddak47}
+  \enspace\textbar\enspace
+  \href{https://codeforces.com/profile/dredd_ak47}{Codeforces - Expert}
+\end{center}
+\vspace{-10pt}
+
+\section{Work Experience}
+\resumeHeading{Directi (Titan Email)}{Bangalore}{SDE - Backend}{July 2025 -- Present}
+\begin{itemize}
+\item Assumed full ownership of Titan's core event-processing and analytics service (Java, Spring Boot), ingesting daily \textbf{50M+} events and \textbf{200K+} entity updates in production across all clients.
+\item Migrated core APIs and SQS consumers to JDK 25 virtual threads, restructuring platform thread pools and optimizing tracing -- drove down P99 latency by \textbf{65\%} under peak load and lifted SQS consumer throughput by \textbf{\textasciitilde 30\%}.
+\item Redesigned the Athena-bound entity-snapshot ETL pipeline using an Iceberg/CDC pattern, cutting pipeline CPU usage by \textbf{70\%}; refined multiple data-heavy Airflow pipelines to reduce time-to-availability for downstream consumers.
+\item Accelerated the GitHub Actions pipeline with EFS-backed persistent caching and SQL/Docker sidecars, reducing workflow time by \textbf{60\%}.
+\item Contributed to Mimir, Titan's AI-powered engineering automation platform, providing safe, scoped agent access across Athena, GitHub, Grafana, and Jira; engineered the Athena-AI MCP integration linking internal analytics to AI agents.
+\item Designed an offline eval suite (debugging/SOS, ticket triage, PR review, analytics, tool selection) spanning 30+ tasks for robust regression detection coverage.
+\item Implemented model routing with confidence-based escalation to stronger models on low-confidence outputs; extended OpenCode with a context-management layer and per-run observability -- task success $\uparrow$\,\textbf{74\%$\to$90\%}, avg. cost $\downarrow$\,\textbf{40\%} (P95 latency flat), input tokens $\downarrow$\,\textbf{\textasciitilde 30\%}, cost-per-task $\downarrow$\,\textbf{\textasciitilde 8\%}.
+\end{itemize}
+
+\noindent\textit{SDE Intern - Backend}\hfill\mbox{\textit{Jan 2025 -- July 2025}}\par
+\begin{itemize}
+\item Architected titan-github-actions, an org-wide GitHub Actions CI/CD platform (Python, Bash) from the ground up on self-hosted runners (ARC on Kubernetes), replacing Jenkins -- lowering average pipeline time by \textbf{\textasciitilde 40\%}, adopted across multiple engineering teams.
+\item Built observability-driven automated deployments (live monitoring via Loki/Prometheus) with dynamic rollback -- cut failed-deploy incidents by \textbf{80\%} and reduced manual deployment effort.
+\end{itemize}
+
+\resumeHeading{Launchpad.ai}{Remote}{Software Engineering Fellow}{Jul 2024 -- Sep 2024}
+\begin{itemize}
+\item Led the team as Scrum Master; optimized a robotic arm for vision-based grasping using Deep RL (DQN, TD3) across a custom PyBullet simulation, improving movement precision/efficiency by \textbf{45\%}. \textbar\ \href{https://medium.com/@gauthamsathyan/automating-sunscreen-application-with-robotics-a-deep-dive-into-two-approaches-34304dbdd719}{\textnormal{{\faExternalLink}\,\normalsize (Blog)}}
+\end{itemize}
+
+\section{Projects}
+\projectHeading{Cortex -- Personal AI Brain}{Python, FastAPI}{\scriptsize\normalsize July 2026 -- Present}
+\begin{itemize}
+  \item Building a personal agent OS that understands working context across GitHub projects, notes, preferences, and prior decisions -- turning scattered thoughts into durable knowledge, personalized plans, and verified actions.
+  \item Implemented a knowledge graph and retrieval layer connecting reading lists, saved topics, project artifacts, and external sources to ground idea exploration in traceable context -- \textbf{64\%} precision@10, \textbf{83\%} provenance coverage across \textbf{150} eval queries.
+  \item Built a governed multi-step orchestration engine (configurable agents, checkpointed HITL workflows, typed outputs, budget controls, tool authorization, failure recovery) -- \textbf{>90\%} end-to-end completion, \textbf{>98\%} structured-output validity, \textbf{80\%} interrupted-run recovery.
+\end{itemize}
+
+\projectHeading{Collab-Docs}{Node.js, PostgreSQL, Redis, WebSockets}{\scriptsize\href{https://github.com/dreddak47/collab-docs}{\faGithub}\ \textbar\ \href{https://collab-client-kvn5.onrender.com/}{\faExternalLink}\ \textbar\ \normalsize Aug. 2026}
+\begin{itemize}
+  \item Engineered and deployed a Google Docs-style real-time collaborative text editor with pluggable CRDT (Yjs) and hand-written OT engines; benchmarked with a load-test harness simulating \textbf{100 editors}, server-side batching cut broadcast messages \textbf{\textasciitilde 24x} and CRDT diffing cut reconnect payload size \textbf{\textasciitilde 400x} for a 100K-character document.
+  \item Added Google OAuth login, 4-tier rate limiting, and Redis-cached sessions with in-process fallback; verified crash durability via fault-injection and property-based suites over an append-only PostgreSQL write log with \textbf{0 characters lost} on recovery.
+\end{itemize}
+
+\section{Technical Skills}
+\textbf{Full Stack:} Java, Spring Boot, Python, FastAPI, SQL, C++, Bash, JavaScript, Node.js, React, REST APIs \\[-1pt]
+\textbf{AI/ML:} MCP, OpenCode, LiteLLM, Routing, Eval design, RAG, LangChain/LangGraph, PyTorch, Agentic AI \\[-1pt]
+\textbf{Systems \& Infra:} AWS (S3, SQS, Lambda), Kubernetes, Docker, Redis, Kafka, Git, CI/CD (GitHub Actions) \\[-1pt]
+\textbf{Data:} MySQL, Athena, Spark, Avro, Airflow \\[-1pt]
+\textbf{Dev Tools:} Claude Code, Codex, Grafana, Auth0, Vercel, Supabase, Notion, OpenRouter \\[-1pt]
+
+\section{Education}
+\resumeHeading
+  {Indraprastha Institute of Information Technology Delhi (IIITD)}
+  {2025}
+  {Bachelor of Technology, Electronics and Communication Engineering}
+  {}
+
+\end{document}

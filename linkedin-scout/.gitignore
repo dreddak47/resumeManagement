@@ -1,0 +1,4 @@
+scout.db
+__pycache__/
+.env
+debug/

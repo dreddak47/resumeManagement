@@ -1,0 +1,21 @@
+{
+  "port": 8765,
+  "candidate": {
+    "summary": "Software engineer with a strong AI/ML lean. B.Tech ECE, IIIT Delhi (2025). Codeforces Expert. SDE-Backend at Directi (Titan Email): owns an event-driven data platform (Java/Spring, SQS, S3, Athena, Airflow) and built an org-wide GitHub Actions CI/CD platform on EKS. Side projects in RAG, RL, LLM agents, full-stack TypeScript.",
+    "target_titles": [
+      "Software Engineer / SDE-1 / SDE-2",
+      "Backend Engineer",
+      "Full-stack Engineer",
+      "AI Engineer / ML Engineer / Applied AI / LLM Engineer",
+      "Forward Deployed Engineer",
+      "Platform / Infrastructure Engineer"
+    ],
+    "years_experience": "about 1.75 years (Jan 2025 - present, including a 6-month internship that converted to full-time)",
+    "skills": ["Java", "Spring Boot", "Python", "TypeScript", "React", "Node.js", "Go", "AWS (SQS, S3, EKS, Lambda, Athena)", "Kafka", "Kubernetes", "GitHub Actions", "LLMs", "RAG", "LangChain/LangGraph", "PyTorch", "Reinforcement Learning"],
+    "location_preferences": "India (Bengaluru, Delhi NCR, Hyderabad, Mumbai, Pune) or remote. Open to relocating within India."
+  },
+  "thresholds": {
+    "post_fit_min": 0.45,
+    "page_fit_min": 0.55
+  }
+}

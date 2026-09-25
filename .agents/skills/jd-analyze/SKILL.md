@@ -1,13 +1,11 @@
 ---
 name: jd-analyze
-description: Analyze a job description and recommend which base resume (SDE or AI-SWE) and which projects/bullets to use for tailoring. Use when the user pastes a job description or JD URL/text and wants to know how to position their resume for it.
+description: Analyze a job description and recommend which base resume (SDE/AI-ML/FDE) and which projects/bullets to use for tailoring. Use when the user pastes a job description or JD URL/text and wants to know how to position their resume for it.
 ---
 
 # JD Analyze
 
 Given a job description (pasted text, file, or URL fetched via WebFetch), produce a structured tailoring brief for Aekansh Kathunia's resume.
-
-**Standing instruction (2026-09):** all tailoring now starts from exactly one of two base files — `resumes/sde.tex` or `resumes/ai-swe.tex`. `resumes/aiml.tex` and `resumes/fde.tex` are retired from the active rotation (kept in the repo for reference only) — do not recommend them.
 
 ## Steps
 
@@ -17,9 +15,10 @@ Given a job description (pasted text, file, or URL fetched via WebFetch), produc
    - `context/projects-overview.md` and the relevant files under `context/projects/`
    - `context/resume-strategy.md`
 
-2. **Classify the role** into one of the two active base archetypes (or a hybrid — say so explicitly if it's a blend, and pick whichever base is closer):
-   - **SDE** (`resumes/sde.tex`) — generalist backend/full-stack, distributed systems, infra emphasis. De-emphasizes Mimir/AI work.
-   - **AI-SWE** (`resumes/ai-swe.tex`) — backend engineer with a real AI lean: Mimir platform work expanded with real metrics, Cortex as a personal-project anchor. Use for AI/ML-flavored SWE roles, agent-platform roles, or roles that want backend depth *plus* applied AI — not pure research/ML-scientist roles.
+2. **Classify the role** into one of the three base archetypes (or a hybrid — say so explicitly if it's a blend):
+   - **SDE** — generalist backend/full-stack, distributed systems, infra emphasis.
+   - **AI/ML Engineer** — LLM/RAG/agents/ML/RL emphasis.
+   - **FDE (Forward Deployed Engineer)** — customer-facing, rapid prototyping, full-stack ownership, ambiguous-problem-to-shipped-tool narratives.
 
 3. **Extract from the JD:**
    - Top 8-12 hard keywords/technologies (for ATS matching) — quote them verbatim from the JD.
@@ -27,9 +26,9 @@ Given a job description (pasted text, file, or URL fetched via WebFetch), produc
    - Seniority signal (does it want 1+ YOE generalist depth, or narrow specialist depth?).
 
 4. **Recommend, with reasoning:**
-   - Which of the two base files to start from.
+   - Which base resume file under `resumes/` (`sde.tex`, `aiml.tex`, or `fde.tex`) to start from.
    - Which 2-3 projects from `context/projects-overview.md` best match this JD's stated needs, ranked, with one-line justification each tied to a specific JD requirement.
-   - Which work-experience bullets to emphasize/reword (e.g., "lead with the Mimir bullets, not the CI/CD bullet, because the JD emphasizes AI tooling"). The Titan block has a canonical default 6-bullet (full-time) + 3-bullet (intern) set — see `context/resume-strategy.md` → "Default Titan bullets." For AI/ML-heavy JDs, the AI-SWE base (`resumes/ai-swe.tex`) already has the Mimir expansion done with real metrics — just reference it, don't regenerate.
+   - Which work-experience bullets to emphasize/reword (e.g., "lead with the Mimir/MCP bullet, not the CI/CD bullet, because the JD emphasizes AI tooling"). The Titan block has a canonical default 6-bullet (full-time) + 3-bullet (intern) set — see `context/resume-strategy.md` → "Default Titan bullets." For AI/ML-heavy JDs, explicitly recommend the AI-focused tailoring rule from that section: cut 1-2 default bullets, expand Mimir into 4-5 bullets from `context/mimir-ai-expansion.md`.
    - Any tech-stack keywords from the JD that are true of Aekansh's real experience (check `context/work-experience.md` and `context/projects/`) but currently missing from the base resume's Technical Skills section — flag these as things to add, but never invent a technology he hasn't actually used.
 
 5. **Flag honesty risks.** If the JD implies a claim that would stretch beyond what `context/projects/*.md` supports (e.g., JD wants "production ML at scale" and the closest project is Vitalis's 16-document eval), say so explicitly so the user can decide how to phrase it, rather than silently overstating.

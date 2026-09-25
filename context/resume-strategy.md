@@ -1,6 +1,16 @@
 # Resume Strategy — Formatting & Role Tailoring
 
-## Overall format guidance for a 1+ YOE SDE-level candidate (applies to all 3 role variants)
+## Standing workflow (2026-09 update)
+
+Going forward, every new job application is tailored from exactly one of **two active base variants**: `resumes/sde.tex` (generalist backend) or `resumes/ai-swe.tex` (backend engineer with a real, metric-backed AI lean — Mimir platform work + Cortex). `resumes/aiml.tex` and `resumes/fde.tex` are retired from the active rotation — kept for reference, not used for new tailoring unless explicitly requested.
+
+**Naming convention:** the final deliverable PDF is `build/aekansh_Resume_<Company>.pdf` (e.g. `aekansh_Resume_Stripe.pdf`); the working `.tex` lives at `resumes/tailored/<company-slug>-<role-slug>.tex`.
+
+**Goal: maximize resume score within the one-page constraint**, not just "produce a tailored resume." The loop is: tailor → compile → score with the `resume-score-checker` agent (ATS + Recruiter/Model Fit) against the target JD → edit based on feedback → recompile → rescore → repeat until scores plateau or the one-page budget is exhausted. See `.claude/skills/tailor-resume/SKILL.md` for the full step-by-step.
+
+**Jev (TypeSafe) for finer bullet-level review:** `scripts/jev_review.py` calls TypeSafe's Jev model (requires `TYPESAFE_API_KEY` in the environment — see `.env.example`) to rate individual bullets on metric density and JD-relevance. Use it as a supplementary signal to catch weak individual bullets that a holistic resume-score-checker pass might average out — not as the primary scoring loop.
+
+## Overall format guidance for a 1+ YOE SDE-level candidate (applies to the active role variants)
 
 **Section order:** Header → **Work Experience** → **Projects** → **Technical Skills** → **Education** → **Achievements**.
 
@@ -62,7 +72,9 @@ Aekansh hand-finalized the Titan/Directi work-experience bullets after several r
 **Space note:** this 9-bullet Titan block is dense for a one-pager. In `sde.tex` the Projects section was trimmed to a single project (Collab-Docs, 2 bullets) to compensate — MIDAS Lab and Launchpad.ai stay at 1 bullet each. If a tailored variant needs to reclaim space, trim Projects further before touching any Titan bullet.
 
 ### AI-focused tailoring rule (when the target JD is AI/ML-heavy)
-Per explicit instruction: **cut 1-2 of the 6 default full-time bullets** (best candidates to cut: #4 GitHub-Actions-caching and #3 SQS→HTTP/vendor-integration, since they're the least AI-relevant) and **replace/expand bullet #6 (Mimir) into 4-5 dedicated bullets** covering token-cost governance, security/auth guardrails for AI agents, policy-based access control, and deeper CI/AI-automation examples. The expanded example set (fabricated-but-plausible, metrics to be filled by Aekansh once he builds/measures the real thing) lives in `context/mimir-ai-expansion.md` — pull from there for AI/ML-resume tailoring instead of writing new Mimir bullets from scratch each time.
+Per explicit instruction: **cut 1-2 of the 6 default full-time bullets** (best candidates to cut: #4 GitHub-Actions-caching and #3 SQS→HTTP/vendor-integration, since they're the least AI-relevant) and **replace/expand bullet #6 (Mimir) into multiple dedicated bullets**.
+
+**Update 2026-09: the Mimir expansion now uses real metrics, not `[X]` placeholders.** Pull the expanded Mimir bullets from `context/work-experience.md` → Mimir section → "Recent platform work (last 3-4 months, real metrics)" — covering the offline eval benchmark suite (15 tasks), model routing + confidence-based escalation (74%→90% success, ~40% cost cut), the AI observability layer (~8% cost-per-task), and the OpenCode context-management layer (~30%/13%/7% token/context/cost reductions). `context/mimir-ai-expansion.md`'s older fabricated-placeholder bullets (security guardrails, policy ACLs, PR auto-fix, JIRA auto-resolve) remain aspirational/unbuilt — do not use them as resume claims until built and measured.
 
 ## General rule for using "vision-level" project bullets
 It's fine and expected to keep using resume bullets that describe a project's *completed vision* (per user's explicit instruction) rather than its current messy state, and to use plausible-but-fabricated metrics where a real measurement doesn't exist yet (e.g., Vitalis's 82%, Japa Coach's eventual accuracy number). The discipline this context store adds: never let the fabricated number be the FIRST time Aekansh has to think about it — it should already be logged in the relevant `projects/*.md` file with the caveat spelled out, so he can smoothly acknowledge current state if an interviewer probes, without contradicting the resume.

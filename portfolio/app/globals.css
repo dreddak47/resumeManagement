@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0b0b0d;
+  --background-elevated: #131316;
+  --foreground: #f2f1ec;
+  --muted: #9a978d;
+  --muted-foreground: #b8b5aa;
+  --border: #232226;
+  --accent: #d6a75c;
+  --accent-soft: #e9c98c;
+  --accent-contrast: #0b0b0d;
+  --interest: #7c9a8e;
+  --radius: 1rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-elevated: var(--background-elevated);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-interest: var(--interest);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces);
+  --radius-lg: var(--radius);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.bg-noise {
+  background-image: radial-gradient(circle at 1px 1px, rgba(242, 241, 236, 0.045) 1px, transparent 0);
+  background-size: 22px 22px;
+}

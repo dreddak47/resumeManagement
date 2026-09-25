@@ -1,0 +1,109 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[margin=0.48in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fontawesome}
+\usepackage{iftex}
+\ifPDFTeX
+  \input{glyphtounicode}
+  \pdfgentounicode=1
+  \pdfinterwordspaceon
+\fi
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{2em}
+\raggedright
+\urlstyle{same}
+
+\titleformat{\section}
+  {\large\bfseries}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing*{\section}{0pt}{4pt}{1.5pt}
+
+\setlist[itemize]{
+  leftmargin=1.15em,
+  label=\textbullet,
+  itemsep=0.3pt,
+  topsep=0.5pt,
+  parsep=0pt,
+  partopsep=0pt
+}
+
+\newcommand{\resumeHeading}[4]{%
+  \par\noindent\textbf{#1}\hfill\mbox{#2}\par
+  \noindent\textit{#3}\hfill\mbox{\textit{#4}}\par
+}
+
+\newcommand{\projectHeading}[3]{%
+  \par\noindent\textbf{#1} \textit{(#2)}\hfill\mbox{#3}\par
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Aekansh Kathunia}\\[-1pt]
+  \textbf{Software Engineer}\\[1pt]
+
+  \href{mailto:aekansh047@gmail.com}{aekansh047@gmail.com}
+  \enspace\textbar\enspace \href{https://www.linkedin.com/in/dreddak47}{linkedin.com/in/dreddak47}
+  \enspace\textbar\enspace
+  \href{https://github.com/dreddak47}{github.com/dreddak47}
+  \enspace\textbar\enspace
+  \href{https://codeforces.com/profile/dredd_ak47}{Codeforces - Expert}
+\end{center}
+\vspace{-10pt}
+
+\section{Work Experience}
+\resumeHeading{Directi (Titan Email)}{Bangalore}{SDE - Backend}{July 2025 -- Present}
+\begin{itemize}
+\item Assumed full ownership of Titan's core event-processing and analytics service (Java, Spring Boot), ingesting daily \textbf{50M+} events and \textbf{200K+} entity updates in production across all clients.
+\item Redesigned the platform's third-party integration layer (Pendo, MoEngage) in a distributed, eventually-consistent event pipeline; led the MoEngage integration into the in-house analytics stack end-to-end, debugging issues spanning multiple internal services and third-party APIs.
+\item Rebuilt SQS-only delivery into concurrent virtual-thread-backed HTTP dispatch under strict per-vendor rate limits, shifting \textbf{90\%} of traffic to HTTP with near-zero downtime; implemented idempotent retry and DLQ handling to gracefully absorb partial failures and timeouts.
+\item Migrated core APIs and SQS consumers to JDK 25 virtual threads, restructuring platform thread pools and optimizing tracing -- drove down P99 latency by \textbf{65\%} under peak load and lifted SQS consumer throughput by \textbf{\textasciitilde 30\%}.
+\item Built out Mimir, Titan's multi-tenant AI agent execution platform: scoped, permissioned tool access to internal services (Athena, GitHub, Grafana, Jira) via workspace isolation and dynamic credentials; engineered the Athena-AI MCP integration exposing internal analytics as tools for AI agents.
+\item Implemented model routing with confidence-based escalation across frontier and open-source models and extended OpenCode with a workspace-aware context management layer -- task success rate $\uparrow$\,\textbf{74\%$\to$90\%}, avg. cost $\downarrow$\,\textbf{40\%} (P95 latency flat).
+\end{itemize}
+
+\noindent\textit{SDE Intern - Backend}\hfill\mbox{\textit{Jan 2025 -- July 2025}}\par
+\begin{itemize}
+\item Architected titan-github-actions, an org-wide GitHub Actions CI/CD platform (Python, Bash) from the ground up on self-hosted runners (ARC on Kubernetes), replacing Jenkins -- lowering average pipeline time by \textbf{\textasciitilde 40\%}, adopted across multiple engineering teams.
+\item Built observability-driven automated deployments (live monitoring via Loki/Prometheus) with dynamic rollback -- cut failed-deploy incidents by \textbf{80\%} and reduced manual deployment effort.
+\end{itemize}
+
+\resumeHeading{Launchpad.ai}{Remote}{Software Engineering Fellow}{Jul 2024 -- Sep 2024}
+\begin{itemize}
+\item Led the team as Scrum Master; Optimized a robotic arm for vision-based grasping using Deep RL (DQN, TD3) across a custom PyBullet simulation, improving movement precision/efficiency by \textbf{45\%}. \textbar\ \href{https://medium.com/@gauthamsathyan/automating-sunscreen-application-with-robotics-a-deep-dive-into-two-approaches-34304dbdd719}{\textnormal{{\faExternalLink}\,\normalsize (Blog)}}
+\end{itemize}
+
+\section{Projects}
+\projectHeading{Cortex -- Personal AI Brain}{Python, FastAPI}{\scriptsize\normalsize July 2026 -- Present}
+\begin{itemize}
+  \item Designing a governed personal agent OS that turns scattered thoughts into durable knowledge, decisions, and verified actions; built a multi-step orchestration engine with checkpointed HITL workflows so interrupted runs resume instead of restarting -- \textbf{80\%} of failed runs recover, \textbf{>90\%} complete end-to-end with \textbf{>98\%} structured-output validity.
+  \item Built governed memory retrieval with source provenance and contradiction detection across multiple sources, so answers ground in traceable, non-conflicting context (\textbf{40\%} precision@5, \textbf{55\%} provenance coverage, still improving); gated actions behind tool authorization and human approval.
+\end{itemize}
+
+\projectHeading{Collab-Docs}{Node.js, TypeScript, PostgreSQL, Redis, WebSockets}{\scriptsize\href{https://github.com/dreddak47/collab-docs}{\faGithub}\ \textbar\ \href{https://collab-client-kvn5.onrender.com/}{\faExternalLink}\ \textbar\ \normalsize Aug. 2026}
+\begin{itemize}
+  \item Engineered and deployed a Google Docs-style real-time collaborative text editor with pluggable CRDT (Yjs) and hand-written OT engines; server-side batching cut broadcast messages \textbf{24.3x} under simulated \textbf{100-editor load}, and CRDT diffing cut reconnect payload size \textbf{408x} for a 100K-character document.
+  \item Added Google OAuth login, 4-tier rate limiting, and Redis-cached sessions with in-process fallback; verified crash durability via fault-injection and property-based suites over an append-only PostgreSQL write log with \textbf{0 characters lost} on recovery.
+\end{itemize}
+
+\section{Technical Skills}
+\textbf{Systems \& Infra:} AWS (S3, SQS, Lambda), Kubernetes, Docker, Redis, Kafka, GitHub Actions \\[-1pt]
+\textbf{Full Stack:} Java, Spring Boot, Python, Node.js, TypeScript, JavaScript, SQL, C++, Bash, React \\[-1pt]
+\textbf{Integrations \& APIs:} HTTP, REST, OAuth, Webhooks, MCP, rate limiting, retries/idempotency \\[-1pt]
+\textbf{Data:} PostgreSQL, MySQL, Athena, Spark, Avro, Airflow \\[-1pt]
+\textbf{AI/Agents:} OpenCode, LiteLLM, Agentic AI, RAG, LangChain/LangGraph, PyTorch \\[-1pt]
+
+\section{Education}
+\resumeHeading
+  {Indraprastha Institute of Information Technology Delhi (IIITD)}
+  {2025}
+  {Bachelor of Technology, Electronics and Communication Engineering}
+  {}
+
+\end{document}

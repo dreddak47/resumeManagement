@@ -63,17 +63,26 @@ Two distinct bodies of work, roughly chronological but with overlap: (1) the CI/
 - Appointment Booking (simple client-facing booking service).
 - Hephaestus (internal dashboard service) — also touched during internship.
 
-### 3. Mimir — centralized AI-toolchain repo (grew out of the Claude Code Actions rollout)
-**What it is:** Org-wide shared repo of slash commands, skills, agents, and workspace automation for AI coding tools — shared across **Claude Code, OpenCode, and Codex**.
+### 3. Mimir — multi-tenant agent execution platform (grew out of the Claude Code Actions rollout; primary focus, last 3-4 months)
+**What it is (updated 2026-09, supersedes the earlier "centralized AI-toolchain repo" framing below):** Mimir evolved from a shared slash-command/agent repo into a multi-tenant, secure agent execution platform integrating **OpenCode, MCP, AWS Athena, GitHub, Grafana, Jira, and internal Titan services**. It provides scoped MCP access per tenant, workspace isolation, dynamic/short-lived credentials, Athena-backed analytics, and OpenCode-based orchestration of agent runs.
 
-**Verified structure:**
+**Verified structure (original toolchain-repo layer, still underlies the platform):**
 - 15–17 org-wide slash commands (`/cap` commit+push, `/gd` git diff, `/jira`, `/preview-publish`, `/explain_diff`, `/fix-issue`, `/sentry`, `/sync-agent-configs`, `/prreview_learn`, `/refactor_validate`, plus backend-namespaced ones like `/backend:cpr`, `/backend:debug`, `/backend:new-feature`, `/backend:pr-self-review`, `/backend:service_security_audit`, `/backend:sos_graph`, `/backend:sentry_debug`).
 - 6+ custom agents (add-javadoc, security-review, db-schema-check, scale-check, claude-md-staleness, api-register-envoy).
 - 4 scoped workspaces with isolated configs: **athena-ai**, frontend-dev, issue-fix-ai, titan-ask.
-- **Athena AI workspace** (his stated MCP work): Python tooling (~489 lines) calling the internal Flock Reporting API (`api.ops.flock.com/mr`) for events/entities/default-attributes; MCP integrations to **Metabase** (analytics dashboards) and a code-review-graph MCP server; used for duplicate-event/entity analysis, late-arrival detection, cross-suite duplication metrics. This is his concrete "brought data closer to AI agents via MCP" work.
+- **Athena AI workspace** (his stated MCP work): Python tooling (~489 lines) calling the internal Flock Reporting API (`api.ops.flock.com/mr`) for events/entities/default-attributes; MCP integrations to **Metabase** (analytics dashboards) and a code-review-graph MCP server; used for duplicate-event/entity analysis, late-arrival detection, cross-suite duplication metrics.
 - Layered documentation: root + workspace-level `CLAUDE.md`/`AGENTS.md`, backend coding guides (common-coding, development, debug, security, test) written in Simplified Technical English conventions.
 
-**Resume framing:** This is his strongest concrete "AI engineering applied to internal tooling" story — org-wide AI tool distribution + a real MCP-based data-agent integration (Athena AI), not just prompting.
+**Recent platform work (last 3-4 months, real metrics — 2026-09 update, supersedes the fabricated placeholders in `context/mimir-ai-expansion.md`):**
+- **Offline eval benchmarks:** built an offline evaluation suite that grew from an initial 15 tasks to **30+ realistic tasks** spanning debugging/SOS handling, ticket management, PR reviews, analytics, and tool selection, giving robust regression-detection coverage across agent/model changes before rollout.
+- **Model routing + confidence-based escalation:** built routing across a model family — frontier models (GPT-5, Opus, Sonnet) plus cheaper open-source models (DeepSeek, Qwen) — with confidence-based escalation to a stronger model on low-confidence outputs instead of accepting them outright.
+- **AI observability layer:** designed a tracing/observability layer capturing model/tool call traces, token usage, latency, cost, and policy outcomes per run; used it to identify high-cost workflows.
+- **Context management layer:** extended OpenCode with a workspace-aware memory layer — structured task checkpoints, semantic retrieval, and cost-aware context assembly — while preserving OpenCode's native session/compaction behavior.
+- **R&D — bandit-based selection policies:** explored model/tool/retrieval selection policies via contextual-bandit experimentation to optimize cost per successful task beyond static routing rules.
+
+**Combined, measured impact (2026-09 clarification — attribution correction):** the ~74% → ~90% task success rate improvement and the ~40% average cost reduction are NOT attributable to model routing alone — they were measured after all four pieces above (routing, escalation, context layer, observability) were in place together, versus the original single-frontier-model baseline. P95 latency held flat despite escalation's extra model calls (measured, not assumed). Per-layer secondary metrics: the context management layer independently cut average input tokens by **~30%**, context size by **~13%**, and inference cost per successful task by **~7%**; the observability layer's high-cost-workflow identification independently trimmed cost-per-task a further **~8%**. When writing resume bullets, credit the **combined system** for the headline 74%→90%/~40%-cost numbers — don't attribute that jump to routing in isolation, since cheaper models alone would not explain a success-rate increase.
+
+**Resume framing:** This is his strongest concrete "AI engineering applied to internal tooling" story — a real multi-tenant agent platform with measured eval/routing/observability/context wins, not just prompting. `context/mimir-ai-expansion.md`'s fabricated-placeholder bullets (token-cost governance, security guardrails, policy ACLs, PR auto-fix, JIRA routing) are now superseded for the routing/cost/observability/context claims above, which have real numbers; the security-guardrail and PR-auto-fix ideas in that file remain unbuilt and should stay flagged as aspirational, not resume claims, until built.
 
 ## Launchpad.ai — Software Engineering Fellow (Jul 2024 – Sep 2024, remote)
 - Cohort-based SWE fellowship; task: robotic motion planning.
